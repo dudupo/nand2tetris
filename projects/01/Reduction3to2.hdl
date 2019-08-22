@@ -1,0 +1,7 @@
+CHIP Reduction3to2 {
+    IN in[3];
+    OUT out[2];
+    PARTS:
+        Or(a=in[0],b=in[0],out=out[0]);
+        Or(a=in[1],b=in[1],out=out[1]);
+}
