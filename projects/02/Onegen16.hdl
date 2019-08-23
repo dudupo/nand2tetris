@@ -1,0 +1,8 @@
+CHIP Onegen16 {
+    IN in[16];
+    OUT out[16], out2[16];
+    
+
+    PARTS:
+   // Put you code here:
+}

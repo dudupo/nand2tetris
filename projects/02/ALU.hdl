@@ -7,7 +7,7 @@
  * The ALU (Arithmetic Logic Unit).
  * Computes one of the following functions:
  * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,
- * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs, 
+ * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs,
  * according to 6 input bits denoted zx,nx,zy,ny,f,no.
  * In addition, the ALU computes two 1-bit outputs:
  * if the ALU output == 0, zr is set to 1; otherwise zr is set to 0;
@@ -27,8 +27,8 @@
 // if (out < 0) set ng = 1
 
 CHIP ALU {
-    IN  
-        x[16], y[16],  // 16-bit inputs        
+    IN
+        x[16], y[16],  // 16-bit inputs
         zx, // zero the x input?
         nx, // negate the x input?
         zy, // zero the y input?
@@ -36,11 +36,50 @@ CHIP ALU {
         f,  // compute out = x + y (if 1) or x & y (if 0)
         no; // negate the out output?
 
-    OUT 
+    OUT
         out[16], // 16-bit output
         zr, // 1 if (out == 0), 0 otherwise
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
+
+        Not16(in=x, out=notx);
+        Inc16(in=notx, out=negx);
+        Not16(in=y, out=noty);
+        Inc16(in=noty, out=negy);
+
+        And(a=x[0],b=zx,out=zxout0);
+        And(a=x[1],b=zx,out=zxout1);
+        And(a=x[2],b=zx,out=zxout2);
+        And(a=x[3],b=zx,out=zxout3);
+        And(a=x[4],b=zx,out=zxout4);
+        And(a=x[5],b=zx,out=zxout5);
+        And(a=x[6],b=zx,out=zxout6);
+        And(a=x[7],b=zx,out=zxout7);
+        And(a=x[8],b=zx,out=zxout8);
+        And(a=x[9],b=zx,out=zxout9);
+        And(a=x[10],b=zx,out=zxout10);
+        And(a=x[11],b=zx,out=zxout11);
+        And(a=x[12],b=zx,out=zxout12);
+        And(a=x[13],b=zx,out=zxout13);
+        And(a=x[14],b=zx,out=zxout14);
+        And(a=x[15],b=zx,out=zxout15);
+        And(a=y[0],b=zy,out=zyout0);
+        And(a=y[1],b=zy,out=zyout1);
+        And(a=y[2],b=zy,out=zyout2);
+        And(a=y[3],b=zy,out=zyout3);
+        And(a=y[4],b=zy,out=zyout4);
+        And(a=y[5],b=zy,out=zyout5);
+        And(a=y[6],b=zy,out=zyout6);
+        And(a=y[7],b=zy,out=zyout7);
+        And(a=y[8],b=zy,out=zyout8);
+        And(a=y[9],b=zy,out=zyout9);
+        And(a=y[10],b=zy,out=zyout10);
+        And(a=y[11],b=zy,out=zyout11);
+        And(a=y[12],b=zy,out=zyout12);
+        And(a=y[13],b=zy,out=zyout13);
+        And(a=y[14],b=zy,out=zyout14);
+        And(a=y[15],b=zy,out=zyout15);
+
    // Put you code here:
 }
