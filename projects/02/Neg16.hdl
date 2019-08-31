@@ -1,0 +1,32 @@
+
+CHIP Neg16 {
+    IN
+        x[16];
+
+    OUT
+        out[16]; // 16-bit output
+
+    PARTS:
+
+        Or(a=x[0],b=x[0],out=fout[0]);
+        Or(a=x[1],b=x[1],out=fout[1]);
+        Or(a=x[2],b=x[2],out=fout[2]);
+        Or(a=x[3],b=x[3],out=fout[3]);
+        Or(a=x[4],b=x[4],out=fout[4]);
+        Or(a=x[5],b=x[5],out=fout[5]);
+        Or(a=x[6],b=x[6],out=fout[6]);
+        Or(a=x[7],b=x[7],out=fout[7]);
+        Or(a=x[8],b=x[8],out=fout[8]);
+        Or(a=x[9],b=x[9],out=fout[9]);
+        Or(a=x[10],b=x[10],out=fout[10]);
+        Or(a=x[11],b=x[11],out=fout[11]);
+        Or(a=x[12],b=x[12],out=fout[12]);
+        Or(a=x[13],b=x[13],out=fout[13]);
+        Or(a=x[14],b=x[14],out=fout[14]);
+        Not(in=x[15],out=fout[15]);
+        Inc16(in=fout,out=out);
+
+
+
+
+}

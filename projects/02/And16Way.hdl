@@ -1,0 +1,11 @@
+CHIP And16Way {
+    IN in[16];
+    OUT out;
+
+    PARTS:
+        And8Way(in=in[0..7], out=out1);
+        And8Way(in=in[8..15], out=out2);
+        And(a=out1,b=out2, out=out);
+
+    // Put your code here:
+}

@@ -1,0 +1,9 @@
+
+CHIP Id16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+        Or16(a=in, b=in,out=out);
+
+}
