@@ -13,8 +13,7 @@ if __name__ == '__main__':
         inputfile = sys.argv[1]
         symbolTable.log()
 
-        tokens = parser.parse(open( inputfile, 'r' ).readlines())
-        hackcode = code.generate( tokens )
+        hackcode = parser.parse(open( inputfile, 'r' ).readlines())
         outpath = outfilename(inputfile)
         with open( outpath , "w" ) as output :
             output.write( hackcode )
