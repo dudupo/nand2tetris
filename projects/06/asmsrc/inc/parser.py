@@ -1,5 +1,5 @@
 import inc.code as code
-
+from string import ascii_letters
 def dex_parse(line):
     ret = format(int(line[1:]) , 'b')
     return "0" * (16 - len(ret)) + ret
@@ -89,6 +89,14 @@ def add_symbols(lines):
     #print(symbol)
     return retlines
 
+def add_variables(lines):
+    hist = 16
+    for line in lines:
+        if line[0] == "@" and line not in symbol and line[1] in ascii_letters :
+            symbol[line] = dex_parse( "@{0}".format( hist) )
+            hist += 1
+    return lines
+
 def format_lines(lines):
     retlines = []
     for line in lines:
@@ -109,6 +117,7 @@ def parse(lines):
 
     lines = handle_spaces_and_commments(lines)
     lines = add_symbols(lines)
+    lines = add_variables(lines)
     lines = assignment_var(lines)
     lines = format_lines(lines)
     return code.generate(lines)
