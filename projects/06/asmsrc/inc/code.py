@@ -52,37 +52,6 @@ jump = {
     "JLE"   : "110",
     "JMP"   : "111"
 }
-#
-# def extract_comp(line):
-#     compLit = ""
-#
-#     def _search(char, compLit):
-#         return char == "=" , compLit
-#
-#     def _accumulate(char, compLit):
-#         if char != ";":
-#             compLit += char
-#             return False, compLit
-#         return True, compLit
-#
-#     def _none(char, compLit):
-#         return False
-#
-#     states = [ _search, _accumulate, _none]
-#     stateindex = 0
-#     for char in line:
-#         _nextstate , compLit = states[stateindex](char , compLit)
-#         if _nextstate :
-#             stateindex += 1
-#
-# def decompose(line):
-#     destLit, compLit, jumpLit = "", "", ""
-#     destInd, compInd, jumpInd = 0,0,0
-
-
-
-
-
 
 def generate(lines):
 

@@ -39,10 +39,6 @@ def binary_parse(line):
     return line +"\n"
 
 def c_instruction(line):
-
-
-
-
     return "0" *16 + "\n"
 
 def emptyline(line):
@@ -86,7 +82,6 @@ def add_symbols(lines):
             hist -= 1
         else :
             retlines.append(line)
-    #print(symbol)
     return retlines
 
 def add_variables(lines):
