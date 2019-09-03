@@ -10,7 +10,7 @@ if __name__ == '__main__':
     if ( len(sys.argv) > 1 ):
         inputfile = sys.argv[1]
 
-        xmlcode =  Node.Node(Streamer.Streamer( inputfile )).generate()  #parser.parse(open( inputfile, 'r' ).readlines())
+        xmlcode =  Node.generateRoot(Streamer.Streamer(inputfile)).generate() #parser.parse(open( inputfile, 'r' ).readlines())
         outpath = outfilename(inputfile)
         with open( outpath , "w" ) as output :
             output.write( xmlcode )
