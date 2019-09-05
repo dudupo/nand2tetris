@@ -41,3 +41,6 @@ class Streamer():
         ret = self.text[self.cursor]
         self.cursor += 1
         return ret
+
+    def top(self):
+        return self.text[self.cursor]
