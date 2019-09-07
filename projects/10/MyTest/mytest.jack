@@ -1,7 +1,11 @@
 class Main {
-
+  var int a , b , c ;
   class Main2 {
-  
+    while ( blabla blalbal ) {
+      if ( bogi bigi ) {
+      
+      }
+    }
   }
 
 }

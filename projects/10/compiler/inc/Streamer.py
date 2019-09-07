@@ -33,7 +33,7 @@ class Streamer():
 
     def __init__(self, inputfile):
         super(Streamer, self).__init__()
-        self.text =  handle_spaces_and_commments(open(inputfile, 'r').read()).split()
+        self.text =  handle_spaces_and_commments(open(inputfile, 'r').read()).replace(";" ," ;").split()
         print(self.text)
         self.cursor = 0
 

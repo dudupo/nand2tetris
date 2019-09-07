@@ -1,12 +1,36 @@
 <class>
 	<keyword> class </keyword>
 	<identifier> Main </identifier>
-	<symbol>{</symbol>
+	<symbol> { </symbol>
+	<varDec>
+		<keyword> var </keyword>
+		<keyword> int </keyword>
+		<identifier> a </identifier>
+		<symbol> , </symbol>
+		<identifier> b </identifier>
+		<symbol> , </symbol>
+		<identifier> c </identifier>
+		<symbol> ; </symbol>
+	</varDec>
 	<class>
 		<keyword> class </keyword>
 		<identifier> Main2 </identifier>
-		<symbol>{</symbol>
-		<symbol>}</symbol>
+		<symbol> { </symbol>
+		<whileStatement>
+			<keyword> while </keyword>
+			<Expression>
+			</Expression>
+			<symbol> { </symbol>
+			<ifStatement>
+				<keyword> if </keyword>
+				<Expression>
+				</Expression>
+				<symbol> { </symbol>
+				<symbol> } </symbol>
+			</ifStatement>
+			<symbol> } </symbol>
+		</whileStatement>
+		<symbol> } </symbol>
 	</class>
-	<symbol>}</symbol>
+	<symbol> } </symbol>
 </class>

@@ -7,7 +7,9 @@ class Node():
     def generate(self):
         ret = ""
         for child in self.children:
-            ret += child.generate()
+            # ~patch~
+            if child != None:
+                ret += child.generate()
         return ret
 
     def histline(self, line, addition=0):
@@ -21,18 +23,13 @@ class IdentifierNode(Node):
     def generate(self):
         return self.histline("<identifier> {0} </identifier>".format(self.identifier))
 
-class ArgcCosure(Node):
+class ArgcClosure(Node):
     def __init__(self, streamer, lcloser='(', rcloser=")", hist=0):
-        super(ArgcCosure, self).__init__(streamer, hist = hist)
+        super(ArgcClosure, self).__init__(streamer, hist = hist)
         self.lcloser = lcloser
         self.rcloser = rcloser
 
     def collect(self):
-        print(" i was here")
-
-        if self.streamer.top() != self.lcloser:
-            raise Exception("shit")
-
         self.children.append( nextToken(self.streamer, hist=self.hist+1) )
 
 
@@ -45,17 +42,66 @@ class ArgcCosure(Node):
         self.children.append( nextToken(self.streamer, hist=self.hist+1) )
 
 
-class ClassNode(ArgcCosure):
+class ClassNode(ArgcClosure):
     def __init__(self, streamer, hist=0):
         super(ClassNode, self).__init__(streamer, lcloser='{', rcloser="}", hist=hist)
         self.children.append( IdentifierNode(streamer, hist=self.hist + 1))
 
         super().collect()
 
+
     def generate(self):
         return self.histline("<class>") + \
                     self.histline("<keyword> class </keyword>", addition=1) + super().generate() + \
                     self.histline("</class>")
+
+class VarNode(Node):
+    def __init__(self, streamer, hist=0):
+        super(VarNode, self).__init__(streamer, hist=hist)
+        self.children.append( createKeyword("var")( streamer, hist=hist+1) )
+        self.children.append( nextToken(streamer, hist=hist+1) ) # int
+        self.children.append( IdentifierNode(streamer, hist=hist+1 ))
+
+        while streamer.top() == ",":
+            self.children.append( nextToken(streamer, hist=hist+1) )
+            self.children.append( IdentifierNode(streamer, hist=hist+1 ))
+
+        self.children.append( nextToken(streamer, hist=hist+1) )
+
+
+    def generate(self):
+        return self.histline("<varDec>") +\
+                    super().generate() + self.histline("</varDec>")
+
+
+class Expression(ArgcClosure):
+    def __init__(self, streamer, hist=0):
+        super(Expression, self).__init__(streamer, lcloser='(', rcloser=")", hist=hist)
+        super().collect()
+
+
+    def generate(self):
+        return self.histline("<Expression>") + \
+                    super().generate() + \
+                    self.histline("</Expression>")
+
+
+def createCondition(_keyword, _statement):
+    class conditionNode(ArgcClosure):
+        def __init__(self, streamer, hist=0):
+            super(conditionNode, self).__init__(streamer, lcloser='{', rcloser="}", hist=hist)
+
+            self.children.append(Expression(streamer, hist=hist+1))
+            super().collect()
+
+
+        def generate(self):
+            return self.histline("<{0}>".format(_statement)) + \
+                        self.histline("<keyword> {0} </keyword>".format(_keyword), addition=1) + super().generate() + \
+                        self.histline("</{0}>".format(_statement))
+
+    return conditionNode
+
 
 def createSymbol(_symbol):
     class SymbolNode(Node):
@@ -64,11 +110,19 @@ def createSymbol(_symbol):
             super(SymbolNode, self).__init__(streamer, hist)
 
         def generate(self):
-            return self.histline("<symbol>{0}</symbol>".format(_symbol))
+            return self.histline("<symbol> {0} </symbol>".format(_symbol))
 
     return SymbolNode
 
+def createKeyword(keyword):
+    class KeywordNode(Node):
+        def __init__(self, streamer, hist=0):
+            super(KeywordNode, self).__init__(streamer, hist)
 
+        def generate(self):
+            return self.histline("<keyword> {0} </keyword>".format(keyword))
+
+    return KeywordNode
 
 
 def nextToken(streamer, hist=0):
@@ -80,19 +134,21 @@ def nextToken(streamer, hist=0):
 def generateRoot(streamer):
     return nextToken(streamer)
 
-
-
-
 tokens = {
     "class" : ClassNode,
     "function" : 0,
     "method" : 0,
-    "if" : 0,
+    "if" : createCondition("if" , "ifStatement"),
     "let" : 0,
+    "while" : createCondition("while" , "whileStatement"),
     "do" : 0,
     "{" : createSymbol("{"),
-    "}" : createSymbol("}")
+    "}" : createSymbol("}"),
+    "," : createSymbol(","),
+    "=" : createSymbol("="),
+    ";" : createSymbol(";"),
+    "var" : VarNode,
+    "int" : createKeyword("int")
 }
-
 
 print("load..")
