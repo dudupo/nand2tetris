@@ -1,9 +1,25 @@
 class Main {
   var int a , b , c ;
+
+  method int miki ( int j ) {
+  
+  }
+
+  function void aaa ( int j ) {
+    var int a , e , t;
+    let a = 5 ;
+    while ( piki piki ) {
+      while ( puku puku ) {
+
+      }
+    }
+  }
+
   class Main2 {
     while ( blabla blalbal ) {
       if ( bogi bigi ) {
-      
+        let a = miki ;
+        do function2.function1();
       }
     }
   }

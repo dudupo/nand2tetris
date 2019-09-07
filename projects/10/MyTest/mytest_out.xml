@@ -12,20 +12,91 @@
 		<identifier> c </identifier>
 		<symbol> ; </symbol>
 	</varDec>
+	<subroutineDec>
+		<keyword> method </keyword>
+		<keyword> int </keyword>
+		<identifier> miki </identifier>
+		<parameterList>
+			<keyword> int </keyword>
+			<identifier> j </identifier>
+		</parameterList>
+		<subroutineBody>
+			<symbol> { </symbol>
+			<symbol> } </symbol>
+		</subroutineBody>
+	</subroutineDec>
+	<subroutineDec>
+		<keyword> function </keyword>
+		<keyword> void </keyword>
+		<identifier> aaa </identifier>
+		<parameterList>
+			<keyword> int </keyword>
+			<identifier> j </identifier>
+		</parameterList>
+		<subroutineBody>
+			<symbol> { </symbol>
+			<varDec>
+				<keyword> var </keyword>
+				<keyword> int </keyword>
+				<identifier> a </identifier>
+				<symbol> , </symbol>
+				<identifier> e </identifier>
+				<symbol> , </symbol>
+				<identifier> t </identifier>
+				<symbol> ; </symbol>
+			</varDec>
+			<lateStatement>
+				<keyword> let </keyword>
+				<identifier> a </identifier>
+					<Expression>
+						<symbol> = </symbol>
+						<symbol> ; </symbol>
+					</Expression>
+			</lateStatement>
+			<whileStatement>
+				<keyword> while </keyword>
+					<Expression>
+					</Expression>
+				<symbol> { </symbol>
+				<whileStatement>
+					<keyword> while </keyword>
+						<Expression>
+						</Expression>
+					<symbol> { </symbol>
+					<symbol> } </symbol>
+				</whileStatement>
+				<symbol> } </symbol>
+			</whileStatement>
+			<symbol> } </symbol>
+		</subroutineBody>
+	</subroutineDec>
 	<class>
 		<keyword> class </keyword>
 		<identifier> Main2 </identifier>
 		<symbol> { </symbol>
 		<whileStatement>
 			<keyword> while </keyword>
-			<Expression>
-			</Expression>
+				<Expression>
+				</Expression>
 			<symbol> { </symbol>
 			<ifStatement>
 				<keyword> if </keyword>
-				<Expression>
-				</Expression>
+					<Expression>
+					</Expression>
 				<symbol> { </symbol>
+				<lateStatement>
+					<keyword> let </keyword>
+					<identifier> a </identifier>
+						<Expression>
+							<symbol> = </symbol>
+							<symbol> ; </symbol>
+						</Expression>
+				</lateStatement>
+				<doStatement>
+					<keyword> do </keyword>
+					<identifier> function2.function1() </identifier>
+					<symbol> ; </symbol>
+				</doStatement>
 				<symbol> } </symbol>
 			</ifStatement>
 			<symbol> } </symbol>

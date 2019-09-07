@@ -75,8 +75,8 @@ class VarNode(Node):
 
 
 class Expression(ArgcClosure):
-    def __init__(self, streamer, hist=0):
-        super(Expression, self).__init__(streamer, lcloser='(', rcloser=")", hist=hist)
+    def __init__(self, streamer, lcloser='(', rcloser=")", hist=0):
+        super(Expression, self).__init__(streamer, lcloser=lcloser, rcloser=rcloser, hist=hist+1)
         super().collect()
 
 
@@ -85,6 +85,75 @@ class Expression(ArgcClosure):
                     super().generate() + \
                     self.histline("</Expression>")
 
+
+class LetNode(Node):
+    def __init__(self, streamer, hist=0):
+        super(LetNode, self).__init__(streamer, hist=hist)
+        self.children.append( createKeyword("let")( streamer, hist=hist+1) )
+        self.children.append( IdentifierNode(streamer, hist=hist+1 ))
+        self.children.append(  Expression(streamer, lcloser = "=", rcloser = ";", hist=hist+1 ) )
+
+    def generate(self):
+        return self.histline("<lateStatement>") + \
+            super().generate() + \
+            self.histline("</lateStatement>")
+
+class doNode(Node):
+    def __init__(self, streamer, hist=0):
+        super(doNode, self).__init__(streamer, hist=hist)
+        self.children.append( createKeyword("do")( streamer, hist=hist+1))
+
+        self.children.append( IdentifierNode(streamer, hist=hist+1) )
+        while streamer.top() == ".":
+            self.children.append( nextToken(streamer, hist=hist+1) )
+            self.children.append( IdentifierNode(streamer, hist=hist+1) )
+        self.children.append( nextToken(streamer, hist=hist+1) )
+
+    def generate(self):
+        return self.histline("<doStatement>") + \
+            super().generate() + \
+            self.histline("</doStatement>")
+
+class parameterListNode(Node):
+    def __init__(self, streamer, hist=0):
+        super(parameterListNode, self).__init__( streamer, hist=hist )
+
+        self.children.append( nextToken( streamer, hist=hist+1 ))
+        while streamer.top() != ")" :
+            self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
+        self.children.append( nextToken( streamer, hist=hist+1 ))
+
+    def generate(self):
+        return self.histline("<parameterList>") + \
+            super().generate() + \
+            self.histline("</parameterList>")
+
+class BodySubRotNode(ArgcClosure):
+    def __init__(self, streamer, hist=0):
+        super(BodySubRotNode, self).__init__( streamer, lcloser='{', rcloser="}", hist=hist)
+        super().collect()
+
+    def generate(self):
+        return self.histline("<subroutineBody>") + \
+            super().generate() + \
+            self.histline("</subroutineBody>")
+
+def createSubRot(_keyword):
+    class SubRotNode(Node):
+        def __init__(self, streamer, hist=0):
+            super(SubRotNode, self).__init__( streamer, hist=hist)
+            self.children.append(createKeyword(_keyword)(streamer, hist=hist+1))
+            self.children.append( nextToken(streamer, hist=hist+1) )
+            self.children.append( IdentifierNode(streamer, hist=hist+1) )
+            self.children.append( parameterListNode(streamer, hist=hist+1) )
+            self.children.append( BodySubRotNode(streamer, hist=hist+1) )
+
+        def generate(self):
+            return self.histline("<subroutineDec>") +\
+                super().generate() +\
+                self.histline("</subroutineDec>")
+
+    return SubRotNode
 
 def createCondition(_keyword, _statement):
     class conditionNode(ArgcClosure):
@@ -125,6 +194,12 @@ def createKeyword(keyword):
     return KeywordNode
 
 
+def Token_or_Identifier(streamer, hist=0):
+    if streamer.top() in tokens:
+        return nextToken(streamer, hist=hist)
+    else:
+        return IdentifierNode(streamer, hist=hist)
+
 def nextToken(streamer, hist=0):
     _token = streamer.read()
 
@@ -136,19 +211,21 @@ def generateRoot(streamer):
 
 tokens = {
     "class" : ClassNode,
-    "function" : 0,
-    "method" : 0,
+    "function" : createSubRot("function"),
+    "method" : createSubRot("method"),
     "if" : createCondition("if" , "ifStatement"),
-    "let" : 0,
+    "let" : LetNode,
     "while" : createCondition("while" , "whileStatement"),
-    "do" : 0,
+    "do" : doNode ,
     "{" : createSymbol("{"),
     "}" : createSymbol("}"),
     "," : createSymbol(","),
     "=" : createSymbol("="),
     ";" : createSymbol(";"),
+    "." : createSymbol("."),
     "var" : VarNode,
-    "int" : createKeyword("int")
+    "int" : createKeyword("int"),
+    "void" : createKeyword("void")
 }
 
 print("load..")
