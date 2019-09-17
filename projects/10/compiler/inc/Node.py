@@ -74,16 +74,54 @@ class VarNode(Node):
                     super().generate() + self.histline("</varDec>")
 
 
+class Term(Node):
+    def __init__(self, streamer, node, hist=0):
+        super(Term, self).__init__(streamer, hist=hist)
+        self.node = node;
+        self.node.hist += 1
+
+    def generate(self):
+        return self.histline("<term>") +\
+                    self.node.generate() + self.histline("</term>")
+
 class Expression(ArgcClosure):
     def __init__(self, streamer, lcloser='(', rcloser=")", hist=0):
         super(Expression, self).__init__(streamer, lcloser=lcloser, rcloser=rcloser, hist=hist+1)
-        super().collect()
+        self.collect()
 
+        # self.preExp = self.children.pop(0) # =
+        # self.endExp = self.children.pop(-1)
+
+        # for debuging propuse :
+        if self.preExp is None:
+            self.preExp = Node(streamer)
+
+        if self.endExp is None:
+            self.endExp = Node(streamer)
+
+        self.preExp.hist -= 1
+        self.endExp.hist -= 1
+
+    def collect(self):
+        self.preExp = nextToken(self.streamer, hist=self.hist+1)
+
+        _token = None
+        while self.streamer.top() != self.rcloser :
+            if self.streamer.top() == "(" :
+                self.children.append(Expression(self.streamer, lcloser='(', rcloser=')', hist=self.hist+1))
+            else :
+                node = Token_or_Identifier(self.streamer, hist=self.hist+1)
+                if node != None :
+                    self.children.append( Term(self.streamer,node, hist=self.hist+1) )
+
+        self.endExp = nextToken(self.streamer, hist=self.hist+1)
 
     def generate(self):
-        return self.histline("<Expression>") + \
+        return self.preExp.generate() +\
+                    self.histline("<expression>") + \
                     super().generate() + \
-                    self.histline("</Expression>")
+                    self.histline("</expression>") +\
+                    self.endExp.generate()
 
 
 class LetNode(Node):
@@ -221,6 +259,8 @@ tokens = {
     "}" : createSymbol("}"),
     "," : createSymbol(","),
     "=" : createSymbol("="),
+    "+" : createSymbol("+"),
+    "-" : createSymbol("-"),
     ";" : createSymbol(";"),
     "." : createSymbol("."),
     "var" : VarNode,

@@ -22,6 +22,39 @@
 		</parameterList>
 		<subroutineBody>
 			<symbol> { </symbol>
+			<lateStatement>
+				<keyword> let </keyword>
+				<identifier> c </identifier>
+					<symbol> = </symbol>
+					<expression>
+						<term>
+							<identifier> qulki </identifier>
+						</term>
+						<term>
+							<symbol> + </symbol>
+						</term>
+							<expression>
+								<term>
+									<identifier> d </identifier>
+								</term>
+								<term>
+									<symbol> - </symbol>
+								</term>
+									<expression>
+										<term>
+											<identifier> r </identifier>
+										</term>
+										<term>
+											<symbol> + </symbol>
+										</term>
+										<term>
+											<identifier> w </identifier>
+										</term>
+									</expression>
+							</expression>
+					</expression>
+					<symbol> ; </symbol>
+			</lateStatement>
 			<symbol> } </symbol>
 		</subroutineBody>
 	</subroutineDec>
@@ -48,20 +81,35 @@
 			<lateStatement>
 				<keyword> let </keyword>
 				<identifier> a </identifier>
-					<Expression>
-						<symbol> = </symbol>
-						<symbol> ; </symbol>
-					</Expression>
+					<symbol> = </symbol>
+					<expression>
+						<term>
+							<identifier> 5 </identifier>
+						</term>
+					</expression>
+					<symbol> ; </symbol>
 			</lateStatement>
 			<whileStatement>
 				<keyword> while </keyword>
-					<Expression>
-					</Expression>
+					<expression>
+						<term>
+							<identifier> piki </identifier>
+						</term>
+						<term>
+							<identifier> piki </identifier>
+						</term>
+					</expression>
 				<symbol> { </symbol>
 				<whileStatement>
 					<keyword> while </keyword>
-						<Expression>
-						</Expression>
+						<expression>
+							<term>
+								<identifier> puku </identifier>
+							</term>
+							<term>
+								<identifier> puku </identifier>
+							</term>
+						</expression>
 					<symbol> { </symbol>
 					<symbol> } </symbol>
 				</whileStatement>
@@ -76,21 +124,36 @@
 		<symbol> { </symbol>
 		<whileStatement>
 			<keyword> while </keyword>
-				<Expression>
-				</Expression>
+				<expression>
+					<term>
+						<identifier> blabla </identifier>
+					</term>
+					<term>
+						<identifier> blalbal </identifier>
+					</term>
+				</expression>
 			<symbol> { </symbol>
 			<ifStatement>
 				<keyword> if </keyword>
-					<Expression>
-					</Expression>
+					<expression>
+						<term>
+							<identifier> bogi </identifier>
+						</term>
+						<term>
+							<identifier> bigi </identifier>
+						</term>
+					</expression>
 				<symbol> { </symbol>
 				<lateStatement>
 					<keyword> let </keyword>
 					<identifier> a </identifier>
-						<Expression>
-							<symbol> = </symbol>
-							<symbol> ; </symbol>
-						</Expression>
+						<symbol> = </symbol>
+						<expression>
+							<term>
+								<identifier> miki </identifier>
+							</term>
+						</expression>
+						<symbol> ; </symbol>
 				</lateStatement>
 				<doStatement>
 					<keyword> do </keyword>

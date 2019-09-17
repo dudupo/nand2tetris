@@ -1,0 +1,27 @@
+<class>
+	<keyword> class </keyword>
+	<identifier> SquareGame </identifier>
+	<symbol> { </symbol>
+	<symbol> ; </symbol>
+	<keyword> int </keyword>
+	<symbol> ; </symbol>
+	<symbol> { </symbol>
+	<lateStatement>
+		<keyword> let </keyword>
+		<identifier> square </identifier>
+			<Expression>
+				<symbol> = </symbol>
+				<symbol> ; </symbol>
+			</Expression>
+	</lateStatement>
+	<lateStatement>
+		<keyword> let </keyword>
+		<identifier> direction </identifier>
+			<Expression>
+				<symbol> = </symbol>
+				<symbol> ; </symbol>
+			</Expression>
+	</lateStatement>
+	<symbol> ; </symbol>
+	<symbol> } </symbol>
+</class>

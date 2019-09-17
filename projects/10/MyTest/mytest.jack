@@ -2,7 +2,7 @@ class Main {
   var int a , b , c ;
 
   method int miki ( int j ) {
-  
+    let c = qulki + ( d - ( r + w ) ) ;
   }
 
   function void aaa ( int j ) {
