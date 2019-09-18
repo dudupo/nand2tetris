@@ -16,57 +16,61 @@
 		<keyword> method </keyword>
 		<keyword> int </keyword>
 		<identifier> miki </identifier>
+		<symbol> ( </symbol>
 		<parameterList>
 			<keyword> int </keyword>
 			<identifier> j </identifier>
 		</parameterList>
-		<subroutineBody>
+		<symbol> ) </symbol>
+			<subroutineBody>
 			<symbol> { </symbol>
-			<lateStatement>
-				<keyword> let </keyword>
-				<identifier> c </identifier>
+			<statements>
+				<letStatement>
+					<keyword> let </keyword>
+					<identifier> c </identifier>
 					<symbol> = </symbol>
 					<expression>
 						<term>
 							<identifier> qulki </identifier>
 						</term>
-						<term>
-							<symbol> + </symbol>
-						</term>
+						<symbol> + </symbol>
+						<symbol> ( </symbol>
+						<expression>
+							<term>
+								<identifier> d </identifier>
+							</term>
+							<symbol> - </symbol>
+							<symbol> ( </symbol>
 							<expression>
 								<term>
-									<identifier> d </identifier>
+									<identifier> r </identifier>
 								</term>
+								<symbol> + </symbol>
 								<term>
-									<symbol> - </symbol>
+									<identifier> w </identifier>
 								</term>
-									<expression>
-										<term>
-											<identifier> r </identifier>
-										</term>
-										<term>
-											<symbol> + </symbol>
-										</term>
-										<term>
-											<identifier> w </identifier>
-										</term>
-									</expression>
 							</expression>
+							<symbol> ) </symbol>
+						</expression>
+						<symbol> ) </symbol>
 					</expression>
 					<symbol> ; </symbol>
-			</lateStatement>
+				</letStatement>
+			</statements>
 			<symbol> } </symbol>
-		</subroutineBody>
+			</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
 		<keyword> function </keyword>
 		<keyword> void </keyword>
 		<identifier> aaa </identifier>
+		<symbol> ( </symbol>
 		<parameterList>
 			<keyword> int </keyword>
 			<identifier> j </identifier>
 		</parameterList>
-		<subroutineBody>
+		<symbol> ) </symbol>
+			<subroutineBody>
 			<symbol> { </symbol>
 			<varDec>
 				<keyword> var </keyword>
@@ -78,19 +82,21 @@
 				<identifier> t </identifier>
 				<symbol> ; </symbol>
 			</varDec>
-			<lateStatement>
-				<keyword> let </keyword>
-				<identifier> a </identifier>
+			<statements>
+				<letStatement>
+					<keyword> let </keyword>
+					<identifier> a </identifier>
 					<symbol> = </symbol>
 					<expression>
 						<term>
-							<identifier> 5 </identifier>
+							<integerConstant> 5 </integerConstant>
 						</term>
 					</expression>
 					<symbol> ; </symbol>
-			</lateStatement>
-			<whileStatement>
-				<keyword> while </keyword>
+				</letStatement>
+				<whileStatement>
+					<keyword> while </keyword>
+					<symbol> ( </symbol>
 					<expression>
 						<term>
 							<identifier> piki </identifier>
@@ -99,24 +105,32 @@
 							<identifier> piki </identifier>
 						</term>
 					</expression>
-				<symbol> { </symbol>
-				<whileStatement>
-					<keyword> while </keyword>
-						<expression>
-							<term>
-								<identifier> puku </identifier>
-							</term>
-							<term>
-								<identifier> puku </identifier>
-							</term>
-						</expression>
+					<symbol> ) </symbol>
 					<symbol> { </symbol>
+					<statements>
+						<whileStatement>
+							<keyword> while </keyword>
+							<symbol> ( </symbol>
+							<expression>
+								<term>
+									<identifier> puku </identifier>
+								</term>
+								<term>
+									<identifier> puku </identifier>
+								</term>
+							</expression>
+							<symbol> ) </symbol>
+							<symbol> { </symbol>
+							<statements>
+							</statements>
+							<symbol> } </symbol>
+						</whileStatement>
+					</statements>
 					<symbol> } </symbol>
 				</whileStatement>
-				<symbol> } </symbol>
-			</whileStatement>
+			</statements>
 			<symbol> } </symbol>
-		</subroutineBody>
+			</subroutineBody>
 	</subroutineDec>
 	<class>
 		<keyword> class </keyword>
@@ -124,17 +138,21 @@
 		<symbol> { </symbol>
 		<whileStatement>
 			<keyword> while </keyword>
-				<expression>
-					<term>
-						<identifier> blabla </identifier>
-					</term>
-					<term>
-						<identifier> blalbal </identifier>
-					</term>
-				</expression>
+			<symbol> ( </symbol>
+			<expression>
+				<term>
+					<identifier> blabla </identifier>
+				</term>
+				<term>
+					<identifier> blalbal </identifier>
+				</term>
+			</expression>
+			<symbol> ) </symbol>
 			<symbol> { </symbol>
-			<ifStatement>
-				<keyword> if </keyword>
+			<statements>
+				<ifStatement>
+					<keyword> if </keyword>
+					<symbol> ( </symbol>
 					<expression>
 						<term>
 							<identifier> bogi </identifier>
@@ -143,25 +161,35 @@
 							<identifier> bigi </identifier>
 						</term>
 					</expression>
-				<symbol> { </symbol>
-				<lateStatement>
-					<keyword> let </keyword>
-					<identifier> a </identifier>
-						<symbol> = </symbol>
-						<expression>
-							<term>
-								<identifier> miki </identifier>
-							</term>
-						</expression>
-						<symbol> ; </symbol>
-				</lateStatement>
-				<doStatement>
-					<keyword> do </keyword>
-					<identifier> function2.function1() </identifier>
-					<symbol> ; </symbol>
-				</doStatement>
-				<symbol> } </symbol>
-			</ifStatement>
+					<symbol> ) </symbol>
+					<symbol> { </symbol>
+					<statements>
+						<letStatement>
+							<keyword> let </keyword>
+							<identifier> a </identifier>
+							<symbol> = </symbol>
+							<expression>
+								<term>
+									<identifier> miki </identifier>
+								</term>
+							</expression>
+							<symbol> ; </symbol>
+						</letStatement>
+						<doStatement>
+							<keyword> do </keyword>
+							<identifier> function2 </identifier>
+							<symbol> . </symbol>
+							<identifier> function1 </identifier>
+							<symbol> ( </symbol>
+							<expressionList>
+							</expressionList>
+							<symbol> ) </symbol>
+							<symbol> ; </symbol>
+						</doStatement>
+					</statements>
+					<symbol> } </symbol>
+				</ifStatement>
+			</statements>
 			<symbol> } </symbol>
 		</whileStatement>
 		<symbol> } </symbol>

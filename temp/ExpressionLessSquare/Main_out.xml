@@ -2,12 +2,7 @@
 	<keyword> class </keyword>
 	<identifier> Main </identifier>
 	<symbol> { </symbol>
-	<classVarDec>
-		<keyword> static </keyword>
-		<keyword> boolean </keyword>
-		<identifier> test </identifier>
-		<symbol> ; </symbol>
-	</classVarDec>
+	<symbol> ; </symbol>
 	<subroutineDec>
 		<keyword> function </keyword>
 		<keyword> void </keyword>
@@ -16,28 +11,22 @@
 		<parameterList>
 		</parameterList>
 		<symbol> ) </symbol>
-			<subroutineBody>
+		<subroutineBody>
 			<symbol> { </symbol>
-			<varDec>
-				<keyword> var </keyword>
-				<identifier> SquareGame </identifier>
-				<identifier> game </identifier>
-				<symbol> ; </symbol>
-			</varDec>
 			<statements>
+				<varDec>
+					<keyword> var </keyword>
+					<identifier> SquareGame </identifier>
+					<identifier> game </identifier>
+					<symbol> ; </symbol>
+				</varDec>
 				<letStatement>
 					<keyword> let </keyword>
 					<identifier> game </identifier>
 					<symbol> = </symbol>
 					<expression>
 						<term>
-							<identifier> SquareGame </identifier>
-							<symbol> . </symbol>
-							<identifier> new </identifier>
-							<symbol> ( </symbol>
-							<expressionList>
-							</expressionList>
-							<symbol> ) </symbol>
+							<identifier> game </identifier>
 						</term>
 					</expression>
 					<symbol> ; </symbol>
@@ -70,7 +59,7 @@
 				</returnStatement>
 			</statements>
 			<symbol> } </symbol>
-			</subroutineBody>
+		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
 		<keyword> function </keyword>
@@ -80,47 +69,47 @@
 		<parameterList>
 		</parameterList>
 		<symbol> ) </symbol>
-			<subroutineBody>
+		<subroutineBody>
 			<symbol> { </symbol>
-			<varDec>
-				<keyword> var </keyword>
-				<keyword> int </keyword>
-				<identifier> i </identifier>
-				<symbol> , </symbol>
-				<identifier> j </identifier>
-				<symbol> ; </symbol>
-			</varDec>
-			<varDec>
-				<keyword> var </keyword>
-				<identifier> String </identifier>
-				<identifier> s </identifier>
-				<symbol> ; </symbol>
-			</varDec>
-			<varDec>
-				<keyword> var </keyword>
-				<identifier> Array </identifier>
-				<identifier> a </identifier>
-				<symbol> ; </symbol>
-			</varDec>
 			<statements>
+				<varDec>
+					<keyword> var </keyword>
+					<keyword> int </keyword>
+					<identifier> i </identifier>
+					<symbol> , </symbol>
+					<identifier> j </identifier>
+					<symbol> ; </symbol>
+				</varDec>
+				<varDec>
+					<keyword> var </keyword>
+					<identifier> String </identifier>
+					<identifier> s </identifier>
+					<symbol> ; </symbol>
+				</varDec>
+				<varDec>
+					<keyword> var </keyword>
+					<keyword> Array </keyword>
+					<identifier> a </identifier>
+					<symbol> ; </symbol>
+				</varDec>
 				<ifStatement>
 					<keyword> if </keyword>
 					<symbol> ( </symbol>
 					<expression>
 						<term>
-							<identifier> false </identifier>
+							<identifier> i </identifier>
 						</term>
 					</expression>
 					<symbol> ) </symbol>
-					<symbol> { </symbol>
 					<statements>
+						<symbol> { </symbol>
 						<letStatement>
 							<keyword> let </keyword>
 							<identifier> s </identifier>
 							<symbol> = </symbol>
 							<expression>
 								<term>
-									<stringConstant> string constant  </stringConstant>
+									<identifier> i </identifier>
 								</term>
 							</expression>
 							<symbol> ; </symbol>
@@ -131,32 +120,18 @@
 							<symbol> = </symbol>
 							<expression>
 								<term>
-									<identifier> null </identifier>
+									<identifier> j </identifier>
 								</term>
 							</expression>
 							<symbol> ; </symbol>
 						</letStatement>
 						<letStatement>
 							<keyword> let </keyword>
-							<identifier> a </identifier>
-							<symbol> [ </symbol>
-							<expression>
-								<term>
-									<integerConstant> 1 </integerConstant>
-								</term>
-							</expression>
-							<symbol> ] </symbol>
+							<identifier> a[i] </identifier>
 							<symbol> = </symbol>
 							<expression>
 								<term>
-									<identifier> a </identifier>
-									<symbol> [ </symbol>
-									<expression>
-										<term>
-											<integerConstant> 2 </integerConstant>
-										</term>
-									</expression>
-									<symbol> ] </symbol>
+									<identifier> j </identifier>
 								</term>
 							</expression>
 							<symbol> ; </symbol>
@@ -173,14 +148,6 @@
 						<term>
 							<identifier> i </identifier>
 						</term>
-						<symbol> * </symbol>
-						<symbol> ( </symbol>
-						<expression>
-							<term>
-								<identifier> -j </identifier>
-							</term>
-						</expression>
-						<symbol> ) </symbol>
 					</expression>
 					<symbol> ; </symbol>
 				</letStatement>
@@ -192,14 +159,6 @@
 						<term>
 							<identifier> j </identifier>
 						</term>
-						<symbol> / </symbol>
-						<symbol> ( </symbol>
-						<expression>
-							<term>
-								<integerConstant> -2 </integerConstant>
-							</term>
-						</expression>
-						<symbol> ) </symbol>
 					</expression>
 					<symbol> ; </symbol>
 				</letStatement>
@@ -211,7 +170,9 @@
 						<term>
 							<identifier> i </identifier>
 						</term>
-						<symbol> | </symbol>
+						<term>
+							<symbol> | </symbol>
+						</term>
 						<term>
 							<identifier> j </identifier>
 						</term>
@@ -220,7 +181,7 @@
 				</letStatement>
 			</statements>
 			<symbol> } </symbol>
-			</subroutineBody>
+		</subroutineBody>
 	</subroutineDec>
 	<returnStatement>
 		<keyword> return </keyword>

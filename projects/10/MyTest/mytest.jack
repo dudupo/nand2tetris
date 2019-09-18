@@ -19,7 +19,7 @@ class Main {
     while ( blabla blalbal ) {
       if ( bogi bigi ) {
         let a = miki ;
-        do function2.function1();
+         do function2.function1();
       }
     }
   }
