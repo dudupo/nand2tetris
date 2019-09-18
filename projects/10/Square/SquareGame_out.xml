@@ -73,7 +73,9 @@
 				<returnStatement>
 					<keyword> return </keyword>
 					<expression>
-						<keyword> this </keyword>
+						<term>
+							<keyword> this </keyword>
+						</term>
 					</expression>
 					<symbol> ; </symbol>
 				</returnStatement>
@@ -111,7 +113,9 @@
 					<symbol> ( </symbol>
 					<expressionList>
 						<expression>
-							<keyword> this </keyword>
+							<term>
+								<keyword> this </keyword>
+							</term>
 						</expression>
 					</expressionList>
 					<symbol> ) </symbol>
@@ -288,7 +292,7 @@
 			<symbol> { </symbol>
 			<varDec>
 				<keyword> var </keyword>
-				<identifier> char </identifier>
+				<keyword> char </keyword>
 				<identifier> key </identifier>
 				<symbol> ; </symbol>
 			</varDec>
@@ -305,7 +309,7 @@
 					<symbol> = </symbol>
 					<expression>
 						<term>
-							<identifier> false </identifier>
+							<keyword> false </keyword>
 						</term>
 					</expression>
 					<symbol> ; </symbol>
@@ -315,7 +319,10 @@
 					<symbol> ( </symbol>
 					<expression>
 						<term>
-							<identifier> ~exit </identifier>
+							<symbol> ~ </symbol>
+							<term>
+								<identifier> exit </identifier>
+							</term>
 						</term>
 					</expression>
 					<symbol> ) </symbol>
@@ -386,7 +393,7 @@
 									<symbol> = </symbol>
 									<expression>
 										<term>
-											<identifier> true </identifier>
+											<keyword> true </keyword>
 										</term>
 									</expression>
 									<symbol> ; </symbol>
@@ -573,19 +580,21 @@
 							<symbol> ( </symbol>
 							<expression>
 								<term>
-									<identifier> ~ </identifier>
+									<symbol> ~ </symbol>
+									<term>
+										<symbol> ( </symbol>
+										<expression>
+											<term>
+												<identifier> key </identifier>
+											</term>
+											<symbol> = </symbol>
+											<term>
+												<integerConstant> 0 </integerConstant>
+											</term>
+										</expression>
+										<symbol> ) </symbol>
+									</term>
 								</term>
-								<symbol> ( </symbol>
-								<expression>
-									<term>
-										<identifier> key </identifier>
-									</term>
-									<symbol> = </symbol>
-									<term>
-										<integerConstant> 0 </integerConstant>
-									</term>
-								</expression>
-								<symbol> ) </symbol>
 							</expression>
 							<symbol> ) </symbol>
 							<symbol> { </symbol>

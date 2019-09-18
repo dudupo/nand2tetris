@@ -34,7 +34,7 @@ class Streamer():
     def __init__(self, inputfile):
         super(Streamer, self).__init__()
         self.text =  handle_spaces_and_commments(open(inputfile, 'r').read())
-        for op in [ ";","(" , ")","[" ,"]","\"", ",",".","+","*","/","=",">","<" ]:
+        for op in [ ";","(" , ")","[" ,"]","\"", ",",".","+","*","/","=",">","<", "-", "~" ]:
             self.text = self.text.replace(op , " {0} ".format(op))
 
         self.text = self.text.split()

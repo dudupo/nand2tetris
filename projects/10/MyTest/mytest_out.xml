@@ -34,25 +34,29 @@
 							<identifier> qulki </identifier>
 						</term>
 						<symbol> + </symbol>
-						<symbol> ( </symbol>
-						<expression>
-							<term>
-								<identifier> d </identifier>
-							</term>
-							<symbol> - </symbol>
+						<term>
 							<symbol> ( </symbol>
 							<expression>
 								<term>
-									<identifier> r </identifier>
+									<identifier> d </identifier>
 								</term>
-								<symbol> + </symbol>
+								<symbol> - </symbol>
 								<term>
-									<identifier> w </identifier>
+									<symbol> ( </symbol>
+									<expression>
+										<term>
+											<identifier> r </identifier>
+										</term>
+										<symbol> + </symbol>
+										<term>
+											<identifier> w </identifier>
+										</term>
+									</expression>
+									<symbol> ) </symbol>
 								</term>
 							</expression>
 							<symbol> ) </symbol>
-						</expression>
-						<symbol> ) </symbol>
+						</term>
 					</expression>
 					<symbol> ; </symbol>
 				</letStatement>

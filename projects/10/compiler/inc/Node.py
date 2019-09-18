@@ -92,9 +92,9 @@ def createVarNode(vartype, _keyword):
 
     return VarNode
 class Term(Node):
-    def __init__(self, streamer, node, hist=0):
+    def __init__(self, streamer, node, minus=False, hist=0):
         super(Term, self).__init__(streamer, hist=hist)
-        node.hist += 1
+        node.updatehist(1)
         self.children.append(node)
         if streamer.top() == ".":
             while streamer.top() == ".":
@@ -103,6 +103,9 @@ class Term(Node):
             self.children.append(ExpressionList( streamer, hist=hist+1))
         elif streamer.top() == "[":
             self.children.append(Expression(streamer, lcloser="[", rcloser="]", hist=hist+1))
+        if minus :
+            self.children.append(\
+             Term(streamer, IdentifierNode(streamer, hist=hist+1), hist=hist+1))
     def generate(self):
         return self.histline("<term>") +\
                     super().generate() + self.histline("</term>")
@@ -112,22 +115,28 @@ class abcExpression(ArgcClosure):
         self.collect()
 
     def collect(self):
+
+        def get_node(perent):
+            _char = self.streamer.top()
+            node = None
+            if _char == "(" :
+                node = Expression(perent.streamer, lcloser='(', rcloser=')', hist=perent.hist+1)
+            elif check_int(_char) :
+                node = IntConstantNode(perent.streamer, hist=perent.hist+1)
+            else:
+                node = Token_or_Identifier(perent.streamer, hist=perent.hist+1)
+            if node != None and ( _char not in operator or _char == "\"") :
+                return Term(perent.streamer,node, hist=perent.hist+1)
+            elif len(perent.children) == 0 and _char in "-~":
+                ret = Term(perent.streamer,node, hist=perent.hist+1)
+                ret.children.append( get_node(ret) )
+                return ret
+            else :
+                return node
+
         _token = None
         while self.notclosed():
-            _char = self.streamer.top()
-            if _char == "(" :
-                self.children.append(Expression(self.streamer, lcloser='(', rcloser=')', hist=self.hist+1))
-            else :
-                node = None
-                if check_int(_char) :
-                    node = IntConstantNode(self.streamer, hist=self.hist+1)
-                else:
-                    node = Token_or_Identifier(self.streamer, hist=self.hist+1)
-
-                if node != None and ( _char not in tokens or _char == "\"") :
-                    self.children.append( Term(self.streamer,node, hist=self.hist+1) )
-                else :
-                    self.children.append(node)
+            self.children.append( get_node(self) )
     def generate(self):
         return self.histline("<expression>") + \
                     super().generate() + \
@@ -328,11 +337,18 @@ def createCondition(_keyword, _statement):
         def __init__(self, streamer, hist=0):
             super(conditionNode, self).__init__(streamer, hist=hist)
             self.children.append(Expression(streamer, hist=hist+1))
-            self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
-            node = ArgcClosureStatements(streamer, lcloser='{', rcloser="}",hist=hist+1)
-            node.collect()
-            self.children.append(node)
-            self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
+
+            def create_block():
+                self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
+                node = ArgcClosureStatements(streamer, lcloser='{', rcloser="}",hist=hist+1)
+                node.collect()
+                self.children.append(node)
+                self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
+
+            create_block()
+            if streamer.top() == "else" and _keyword == "if" :
+                self.children.append( Token_or_Identifier(streamer, hist=hist+1) )
+                create_block()
 
         def generate(self):
             return self.histline("<{0}>".format(_statement)) + \
@@ -377,6 +393,36 @@ def check_int(s):
         return s[1:].isdigit()
     return s.isdigit()
 
+
+operator = {
+    "+" : createSymbol("+"),
+    "-" : createSymbol("-"),
+    "*" : createSymbol("*"),
+    "/" : createSymbol("/"),
+    "|" : createSymbol("|"),
+    "=" : createSymbol("="),
+    "<" : createSymbol("&lt;"),
+    ">" : createSymbol("&gt;"),
+    "&" : createSymbol("&amp;"),
+    "~" : createSymbol("~")
+}
+
+
+symbols = {
+    "{" : createSymbol("{"),
+    "}" : createSymbol("}"),
+    "(" : createSymbol("("),
+    ")" : createSymbol(")"),
+    "[" : createSymbol("["),
+    "]" : createSymbol("]"),
+    "," : createSymbol(","),
+    **operator,
+    ";" : createSymbol(";"),
+    "." : createSymbol(".")
+
+}
+
+
 tokens = {
     "class" : ClassNode,
     "function" : createSubRot("function"),
@@ -386,33 +432,22 @@ tokens = {
     "let" : LetNode,
     "while" : createCondition("while" , "whileStatement"),
     "do" : doNode ,
-    "{" : createSymbol("{"),
-    "}" : createSymbol("}"),
-    "(" : createSymbol("("),
-    ")" : createSymbol(")"),
-    "[" : createSymbol("["),
-    "]" : createSymbol("]"),
-    "," : createSymbol(","),
-    "=" : createSymbol("="),
-    "+" : createSymbol("+"),
-    "-" : createSymbol("-"),
-    "*" : createSymbol("*"),
-    "/" : createSymbol("/"),
-    "|" : createSymbol("|"),
-    ";" : createSymbol(";"),
-    "." : createSymbol("."),
-    "<" : createSymbol("&lt;"),
-    ">" : createSymbol("&gt;"),
+    **symbols,
     "\"" : StringConstantNode,
     "var" : createVarNode("varDec" , "var"),
     "field" :createVarNode("classVarDec" , "field"),
     "static" :createVarNode("classVarDec" , "static"),
     "int" : createKeyword("int"),
+    "char" : createKeyword("char"),
     "boolean" : createKeyword("boolean"),
+    "true" : createKeyword("true"),
+    "false" : createKeyword("false"),
     # "Array" : createKeyword("Array"),
     "void" : createKeyword("void"),
     "return" : ReturnNode,
-    "this" : createKeyword("this")
+    "this" : createKeyword("this"),
+    "null" : createKeyword("null"),
+    "else" : createKeyword("else")
 }
 
 print("load..")
