@@ -15,50 +15,67 @@ class String {
     /** constructs a new empty string with a maximum length of maxLength
      *  and initial length of 0. */
     constructor String new(int maxLength) {
+        return this;
     }
 
     /** Disposes this string. */
     method void dispose() {
+        return;
     }
 
     /** Returns the current length of this string. */
     method int length() {
+        return 1;
     }
 
     /** Returns the character at the j-th location of this string. */
     method char charAt(int j) {
+        var char c;
+        return c;
     }
 
     /** Sets the character at the j-th location of this string to c. */
     method void setCharAt(int j, char c) {
+        return;
     }
 
     /** Appends c to this string's end and returns this string. */
     method String appendChar(char c) {
+        var String s;
+        return s;
     }
 
     /** Erases the last character from this string. */
     method void eraseLastChar() {
+        return;
     }
 
-    /** Returns the integer value of this string, 
+    /** Returns the integer value of this string,
      *  until a non-digit character is detected. */
     method int intValue() {
+        return 1;
     }
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
+        return;
     }
 
     /** Returns the new line character. */
     function char newLine() {
+        var char c;
+        return c;
     }
 
     /** Returns the backspace character. */
     function char backSpace() {
+        var char c;
+        return c;
     }
 
     /** Returns the double quote (") character. */
     function char doubleQuote() {
+        var char c;
+        return c;
     }
 }

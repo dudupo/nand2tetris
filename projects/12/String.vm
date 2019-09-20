@@ -1,0 +1,55 @@
+function String.new 0
+push constant 0
+call Memory.alloc 1
+pop pointer 0
+push pointer 0
+return
+function String.dispose 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function String.length 0
+push argument 0
+pop pointer 0
+push constant 1
+return
+function String.charAt 1
+push argument 0
+pop pointer 0
+push local 0
+return
+function String.setCharAt 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function String.appendChar 1
+push argument 0
+pop pointer 0
+push local 0
+return
+function String.eraseLastChar 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function String.intValue 0
+push argument 0
+pop pointer 0
+push constant 1
+return
+function String.setInt 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function String.newLine 1
+push local 0
+return
+function String.backSpace 1
+push local 0
+return
+function String.doubleQuote 1
+push local 0
+return
