@@ -16,8 +16,29 @@ class Math {
 
     /** Returns the absolute value of x. */
     function int abs(int x) {
-        return 1;
+        if ( x = 0 ) {
+            return 0;
+        }
+        if ( x > 0 ) {
+            return x;
+        }
+        else {
+            return -x;
+        }
     }
+
+    // function int get_ith_bit(int x, int i){
+    //     var int num , j;
+    //     let num = 1;
+    //     let j = 0;
+    //     while ( j < i ) {
+    //         let j = j + 1;
+    //         let num = 2 * num;
+    //     }
+    //     return x & i;
+    // }
+
+
 
     /** Returns the product of x and y.
      *  When a Jack compiler detects the multiplication operator '*' in the
@@ -25,7 +46,33 @@ class Math {
      *  the Jack expressions x*y and multiply(x,y) return the same value.
      */
     function int multiply(int x, int y) {
-        return 1;
+        var int i, ret, j, z, shiftedx;
+
+        if ( y = 0 ) {
+            return 0;
+        }
+        if ( x = 0 ) {
+            return 0;
+        }
+
+        let i = 1;
+        let shiftedx = x;
+        let ret = 0;
+        let j = 0;
+        let z = Math.abs(y);
+
+        while (j < 16) {
+            let j = j + 1;
+            if ( (z & i) > 0  ) {
+                let ret = ret + shiftedx;
+            }
+            let i = i + i;
+            let shiftedx = shiftedx + shiftedx;
+        }
+        if ( y < 0) {
+            return -ret;
+        }
+        return ret;
     }
 
     /** Returns the integer part of x/y.
@@ -34,21 +81,75 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
-        return 1;
+        var int q;
+
+        if ( x = 0 ){
+            return 0;
+        }
+
+        if ( x < 0 ) {
+            return -Math.divide( Math.abs(x), y );
+        }
+
+        if ( y < 0 ) {
+            return -Math.divide( x, Math.abs(y) );
+        }
+
+        if ( x < y ) {
+            return 0;
+        }
+
+        let q = Math.divide(x , (2*y));
+
+        if ( ( x - ((2*q)*y) ) < y ) {
+            return 2 * q;
+        }
+        else {
+            return (2 * q) + 1;
+        }
     }
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
-        return 1;
+        var int i, j, z, v;
+        let i = 512;
+        let j = 0;
+
+        while ( i > 0 ) {
+            let v = j + i;
+            let z  = v * v;
+            /*
+                TODO : !!!!!
+                    handling the case when addition pass the length of bits.
+                    the following is patch. ( z > i )
+            */
+            if ( z > i ) {
+                if ( (z < x) | (z = x) ) {
+                    let j = j + i;
+                }
+            }
+            let i = i / 2;
+        }
+        return j;
     }
 
     /** Returns the greater number. */
     function int max(int a, int b) {
-        return 1;
+        if ( a > b) {
+            return a;
+        }
+        else {
+            return b;
+        }
     }
 
     /** Returns the smaller number. */
     function int min(int a, int b) {
-        return 1;
+        if ( a < b) {
+            return a;
+        }
+        else {
+            return b;
+        }
     }
 }

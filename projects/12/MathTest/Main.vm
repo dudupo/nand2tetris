@@ -158,5 +158,71 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+push constant 14
+push local 0
+add
+push constant 512
+push constant 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 15
+push local 0
+add
+push constant 14
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 16
+push local 0
+add
+push constant 15
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push local 0
+add
+push constant 16
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push local 0
+add
+push constant 17
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 2
+call Math.divide 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push constant 0
 return

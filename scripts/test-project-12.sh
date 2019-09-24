@@ -36,6 +36,7 @@ done
 
 for j in ./projects/12/*/*.tst
 do
+  echo "testing : $j"
   ./tools/VmEmulator.bat  "$j"
 done
 
