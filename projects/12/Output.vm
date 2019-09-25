@@ -1,7 +1,13 @@
 function Output.init 0
 push constant 0
+pop static 1
+push constant 0
+pop static 2
+call Output.initMap 0
+pop temp 0
+push constant 0
 return
-function Output.initMap 1
+function Output.initMap 0
 push constant 127
 call Array.new 1
 pop static 0
@@ -1474,9 +1480,51 @@ pop pointer 1
 push that 0
 return
 function Output.moveCursor 0
+push argument 0
+pop static 1
+push argument 1
+pop static 2
 push constant 0
 return
-function Output.printChar 0
+function Output.printChar 2
+push constant 0
+pop local 1
+push argument 0
+call Output.getMap 1
+pop local 0
+label WHILE_EXP0
+push local 1
+push constant 11
+lt
+not
+if-goto WHILE_END0
+push static 1
+push static 2
+push local 1
+push local 0
+add
+pop pointer 1
+push that 0
+call Screen.drawBitArray 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+push static 2
+push constant 1
+add
+pop static 2
+goto WHILE_EXP0
+label WHILE_END0
+push static 2
+push constant 11
+sub
+pop static 2
+push static 1
+push constant 1
+add
+pop static 1
 push constant 0
 return
 function Output.printString 0
@@ -1486,6 +1534,12 @@ function Output.printInt 0
 push constant 0
 return
 function Output.println 0
+push static 2
+push constant 11
+add
+pop static 2
+push constant 0
+pop static 1
 push constant 0
 return
 function Output.backSpace 0

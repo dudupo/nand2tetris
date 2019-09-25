@@ -25,6 +25,30 @@ push argument 0
 neg
 return
 label IF_END1
+function Math.sign 0
+push argument 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push argument 0
+push constant 0
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+return
+goto IF_END1
+label IF_FALSE1
+push constant 1
+neg
+return
+label IF_END1
 function Math.multiply 5
 push argument 1
 push constant 0
@@ -57,7 +81,7 @@ call Math.abs 1
 pop local 3
 label WHILE_EXP0
 push local 2
-push constant 16
+push constant 15
 lt
 not
 if-goto WHILE_END0
