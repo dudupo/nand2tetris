@@ -81,7 +81,9 @@ class Screen {
     function void drawBitArray(int x, int y, int c) {
         var int address, value, z;
         let address = (y * 32) + x;
-        do Memory.poke(screen_hist + address,  c);
+        let value = Memory.peek(screen_hist + address);
+        let value = value | c;
+        do Memory.poke(screen_hist + address,  value);
         return;
     }
 

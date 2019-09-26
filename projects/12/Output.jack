@@ -76,7 +76,7 @@ class Output {
         do Output.create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
         do Output.create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
 
-        do Output.create(65,0,0,0,0,0,0,0,0,0,0,0);          // A ** TO BE FILLED **
+        do Output.create(65,12,30,51,51,63,51,51,51,51,0,0);          // A ** TO BE FILLED **
         do Output.create(66,31,51,51,51,31,51,51,51,31,0,0); // B
         do Output.create(67,28,54,35,3,3,3,35,54,28,0,0);    // C
         do Output.create(68,15,27,51,51,51,51,51,27,15,0,0); // D
@@ -181,8 +181,8 @@ class Output {
     /** Moves the cursor to the j-th column of the i-th row,
      *  and erases the character displayed there. */
     function void moveCursor(int x, int y) {
-				let i_cursor = x;
-				let j_cursor = y;
+				let i_cursor = y;
+				let j_cursor = x*11;
 				return;
 		}
 
@@ -190,47 +190,74 @@ class Output {
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
 				var Array map;
-				var int t;
+				var int t, padd;
 				let t = 0;
 				let map = Output.getMap(c);
+
+				if ( i_cursor & 1 ) {
+					let padd = 256;
+				} else {
+					let padd = 1;
+				}
+
+
 				while( t < 11 ) {
-					do Screen.drawBitArray(i_cursor, j_cursor, map[t]);
+					do Screen.drawBitArray((i_cursor / 2 ), j_cursor, (padd * map[t]));
 					let t = t + 1;
 					let j_cursor = j_cursor + 1;
 				}
 				let j_cursor = j_cursor - 11;
-				let i_cursor = i_cursor + 1;
+
+				if ( i_cursor < 63 ) {
+					let i_cursor = i_cursor + 1;
+				}
+				else {
+					do Output.println();
+				}
+
+
 				return;
 		}
 
     /** displays the given string starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printString(String s) {
+				var int len, i;
+				let len = s.length();
+				let i = 0;
+				while( i < len ) {
+					do Output.printChar( s.charAt(i) );
+					let i = i + 1;
+				}
 				return;
 		}
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
+				var String s;
+				let s = String.new(16);
+				do s.setInt(i);
+				do Output.printString(s);
+				do s.dispose();
 				return;
 		}
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
-				let j_cursor = j_cursor + 11;
+				if ( (j_cursor + 22) < 256 ){
+					let j_cursor = j_cursor + 11;
+				}
+				else {
+					let j_cursor = 0;
+				}
 				let i_cursor = 0;
 				return;
 		}
 
     /** Moves the cursor one column back. */
     function void backSpace() {
-			// if ( i_cursor > 8) {
-			// 	let i_cursor = i_cursor - 8;
-			// }
-			// else {
-			// 	let i_cursor = 248;
-			// 	let j_cursor = j_cursor - 11;
-			// }
+				do Output.printChar( 32 );
 				return;
 		}
 }

@@ -14,9 +14,9 @@ class Sys {
         do Memory.init();
         //do Array.init();
         //do String.init();
-        do Keyboard.init();
-        do Output.init();
         do Screen.init();
+        do Output.init();
+        do Keyboard.init();
         do Main.main();
         do Sys.halt();
         return;
